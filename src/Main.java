@@ -1,9 +1,11 @@
+import java.awt.dnd.DropTarget;
 import java.util.Scanner;
 
 public class Main {
 
     private static Scanner scan = new Scanner(System.in);
     private static MovieService movieService = new MovieService();
+    private static DatabaseConnectionTest database = new DatabaseConnectionTest();
 
     public static void main(String[] args) {
 
@@ -55,34 +57,18 @@ public class Main {
 
 
     public static void addMovie() {
-        //ask user for movie info
-        System.out.print("Enter a movie: ");
-        String title = scan.nextLine();
-        System.out.print("Enter the genre: ");
-        String genre = scan.nextLine();
-        System.out.print("Enter a rating (1 - 10): ");
-        int rating = scan.nextInt();
-        scan.nextLine(); //use up Enter key
-
-        //create new object
-        Movie movie = new Movie(title, genre, rating);
-
-        movieService.addMovie(movie);
+        database.insertMovie();
 
     }
 
     public static void viewMovies() {
         System.out.println("Movies: ");
         System.out.println("============");
-        movieService.viewMovies();
-        System.out.println("============");
+        database.viewAll();
     }
 
     public static void deleteMovie() {
-        System.out.println("Enter the title of movie you want to delete: ");
-        String removeTitle = scan.nextLine();
-
-        movieService.deleteMovie(removeTitle);
+        database.removeMovie();
     }
 
 
@@ -90,6 +76,5 @@ public class Main {
     public static void pause() {
         System.out.print("\nPress ENTER to continue...");
         scan.nextLine();
-        System.out.println("\n\n");
     }
 }//ends class
